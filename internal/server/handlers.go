@@ -35,6 +35,7 @@ type ToggleWishStatusRequest struct {
 
 func (s *Server) LogMiddleware(fn http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		log.Printf("Incoming request: method %s, path %s", r.Method, r.RequestURI)
 		fn(w, r)
 	}
@@ -98,7 +99,7 @@ func (s *Server) AddWish(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	s.app.AddWish(req.Username, req.Title, req.Link)
+	s.app.AddWish(req.Title, req.Link, req.Username)
 }
 
 func (s *Server) RemoveWish(w http.ResponseWriter, r *http.Request) {
