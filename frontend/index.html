@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="./assets/reset.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+</head>
+
+<body>
+    <header class="header">
+        <img class="header__logo" src="./assets/logo.png" alt="">
+    </header>
+
+    <div class="main">
+        <div class="container">
+            {{if eq (len .) 0}}
+            <div class="warning">
+                No users found
+            </div>
+            {{end}}
+
+            <div class="users">
+                {{range .}}
+                <div class="user" data-username="{{.Username}}">
+                    <div class="user__username">
+                        {{.Username}}
+                    </div>
+
+                    {{template "wishlist" .Wishlist}}
+                </div>
+                {{end}}
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay">
+        <div class="modal" id="edit-wish">
+            <button type="button" class="btn modal__close">✖️</button>
+            <div class="modal__content">
+                <form class="modal__form">
+                    <div class="modal__input">
+                        <label class="modal__label" for="input-wish-title">Название</label>
+                        <input id="input-wish-title" type="text">
+                    </div>
+                    <div class="modal__input">
+                        <label class="modal__label" for="input-wish-link">Ссылка</label>
+                        <input id="input-wish-link" type="text">
+                    </div>
+                    <button class="btn modal__btn">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="add-wish">
+        <button type="button" class="btn modal__close">✖️</button>
+        <div class="modal__content">
+            <form class="modal__form">
+                <div class="modal__input">
+                    <label class="modal__label" for="input-wish-title">Название</label>
+                    <input id="input-wish-title" type="text">
+                </div>
+                <div class="modal__input">
+                    <label class="modal__label" for="input-wish-link">Ссылка</label>
+                    <input id="input-wish-link" type="text">
+                </div>
+                <button class="btn modal__btn">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="remove-wish">
+        <button type="button" class="btn modal__close">✖️</button>
+        <div class="modal__content">
+            <form class="modal__form">
+                <div class="modal__text">Подтвердите удаление элемента</div>
+                <button class="btn btn_delete modal__btn">Удалить</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="./assets/main.js"></script>
+</body>
+
+</html>

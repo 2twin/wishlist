@@ -1,0 +1,21 @@
+{{define "wishlist"}}
+{{if eq (len .) 0}}
+<div class="warning">No wishes found</div>
+{{end}}
+
+<ul class="wishlist">
+    {{range .}}
+    <li class="item {{if .Completed}} completed {{end}}" data-id="{{.ID}}">
+        <a class="item__title" href="{{.Link}}">{{.Title}}</a>
+        <div class="item__buttons">
+            <button class="btn open-modal btn-edit" data-modal="edit-wish" title="Редактировать">✏️</button>
+            <button class="btn btn-complete" title="Завершено">✅</button>
+            <button class="btn open-modal btn-remove" data-modal="remove-wish" title="Удалить">❌</button>
+        </div>
+    </li>
+    {{end}}
+    <li class="item item_add">
+        <button class="btn open-modal btn-add" data-modal="add-wish" title="Добавить">➕</button>
+    </li>
+</ul>
+{{end}}
