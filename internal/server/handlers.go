@@ -35,13 +35,13 @@ type ToggleWishStatusRequest struct {
 
 func (s *Server) LogMiddleware(fn http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
 		log.Printf("Incoming request: method %s, path %s", r.Method, r.RequestURI)
 		fn(w, r)
 	}
 }
 
 func (s *Server) AddUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
@@ -66,6 +66,7 @@ func (s *Server) AddUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) RemoveUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if r.Method != http.MethodDelete {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
@@ -90,6 +91,7 @@ func (s *Server) RemoveUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) AddWish(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
@@ -108,6 +110,7 @@ func (s *Server) AddWish(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) RemoveWish(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if r.Method != http.MethodDelete {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
@@ -132,6 +135,7 @@ func (s *Server) RemoveWish(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) EditWish(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if r.Method != http.MethodPatch {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
@@ -156,6 +160,7 @@ func (s *Server) EditWish(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) ToggleWishStatus(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if r.Method != http.MethodPatch {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
@@ -180,6 +185,7 @@ func (s *Server) ToggleWishStatus(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) GetWishes(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
