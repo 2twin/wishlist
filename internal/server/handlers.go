@@ -61,6 +61,8 @@ func (s *Server) AddUser(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
+
+	w.WriteHeader(http.StatusOK)
 }
 
 func (s *Server) RemoveUser(w http.ResponseWriter, r *http.Request) {
@@ -83,6 +85,8 @@ func (s *Server) RemoveUser(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
 
 func (s *Server) AddWish(w http.ResponseWriter, r *http.Request) {
@@ -100,6 +104,7 @@ func (s *Server) AddWish(w http.ResponseWriter, r *http.Request) {
 	}
 
 	s.app.AddWish(req.Title, req.Link, req.Username)
+	w.WriteHeader(http.StatusOK)
 }
 
 func (s *Server) RemoveWish(w http.ResponseWriter, r *http.Request) {
@@ -122,6 +127,8 @@ func (s *Server) RemoveWish(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
 
 func (s *Server) EditWish(w http.ResponseWriter, r *http.Request) {
@@ -144,6 +151,8 @@ func (s *Server) EditWish(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
+
+	w.WriteHeader(http.StatusOK)
 }
 
 func (s *Server) ToggleWishStatus(w http.ResponseWriter, r *http.Request) {
@@ -166,6 +175,8 @@ func (s *Server) ToggleWishStatus(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
+
+	w.WriteHeader(http.StatusOK)
 }
 
 func (s *Server) GetWishes(w http.ResponseWriter, r *http.Request) {
@@ -184,4 +195,5 @@ func (s *Server) GetWishes(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write(data)
+	w.WriteHeader(http.StatusOK)
 }

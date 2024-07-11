@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"html/template"
 	"log"
 	"net/http"
 	"time"
@@ -27,20 +26,20 @@ func (s *Server) InitRoutes() {
 	mux := http.NewServeMux()
 	s.httpServer.Handler = mux
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		t, err := template.ParseFiles("frontend/index.html", "frontend/wishlist.html")
-		if err != nil {
-			log.Fatal(err)
-		}
+	// mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	// 	t, err := template.ParseFiles("frontend/index.html", "frontend/wishlist.html")
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
 
-		err = t.Execute(w, s.app.Users)
-		if err != nil {
-			log.Fatal(err)
-		}
-	})
+	// 	err = t.Execute(w, s.app.Users)
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// })
 
-	fs := http.FileServer(http.Dir("./assets"))
-	mux.Handle("/assets/*", http.StripPrefix("/assets/", fs))
+	// fs := http.FileServer(http.Dir("./assets"))
+	// mux.Handle("/assets/*", http.StripPrefix("/assets/", fs))
 
 	mux.HandleFunc("/add_user", s.LogMiddleware(s.AddUser))
 	mux.HandleFunc("/remove_user", s.LogMiddleware(s.RemoveUser))
