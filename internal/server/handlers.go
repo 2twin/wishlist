@@ -200,6 +200,6 @@ func (s *Server) GetWishes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write(data)
 	w.WriteHeader(http.StatusOK)
+	w.Write(data)
 }

@@ -23,6 +23,7 @@ var (
 
 func (a *App) AddWish(title, link, user string) {
 	wish := Wish{
+		ID:        uuid.New(),
 		Title:     title,
 		Link:      link,
 		User:      user,
