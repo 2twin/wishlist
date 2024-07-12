@@ -19,6 +19,10 @@ type AddWishRequest struct {
 	Link     string `json:"link,omitempty"`
 }
 
+type AddWishResponse struct {
+	WishID uuid.UUID `json:"wish_id"`
+}
+
 type EditWishRequest struct {
 	WishID uuid.UUID `json:"wish_id"`
 	Title  string    `json:"title,omitempty"`
@@ -61,8 +65,6 @@ func (s *Server) AddUser(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-
-	w.WriteHeader(http.StatusOK)
 }
 
 func (s *Server) RemoveUser(w http.ResponseWriter, r *http.Request) {
@@ -105,8 +107,17 @@ func (s *Server) AddWish(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	s.app.AddWish(req.Title, req.Link, req.Username)
-	w.WriteHeader(http.StatusOK)
+	wishID := s.app.AddWish(req.Title, req.Link, req.Username)
+	resp := AddWishResponse{
+		WishID: wishID,
+	}
+
+	err = json.NewEncoder(w).Encode(resp)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Println(err)
+		return
+	}
 }
 
 func (s *Server) RemoveWish(w http.ResponseWriter, r *http.Request) {
@@ -155,8 +166,6 @@ func (s *Server) EditWish(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-
-	w.WriteHeader(http.StatusOK)
 }
 
 func (s *Server) ToggleWishStatus(w http.ResponseWriter, r *http.Request) {
@@ -180,8 +189,6 @@ func (s *Server) ToggleWishStatus(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-
-	w.WriteHeader(http.StatusOK)
 }
 
 func (s *Server) GetWishes(w http.ResponseWriter, r *http.Request) {
@@ -199,8 +206,7 @@ func (s *Server) GetWishes(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-
-	w.WriteHeader(http.StatusOK)
+	
 	w.Write(data)
 }
 
@@ -219,7 +225,6 @@ func (s *Server) GetUsers(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-
-	w.WriteHeader(http.StatusOK)
+	
 	w.Write(data)
 }

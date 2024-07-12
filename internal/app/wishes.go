@@ -21,7 +21,7 @@ var (
 	ErrWishNotFound = errors.New("wish id not found")
 )
 
-func (a *App) AddWish(title, link, user string) {
+func (a *App) AddWish(title, link, user string) uuid.UUID {
 	wish := Wish{
 		ID:        uuid.New(),
 		Title:     title,
@@ -33,6 +33,7 @@ func (a *App) AddWish(title, link, user string) {
 
 	a.Wishes = append(a.Wishes, wish)
 	log.Printf("Added wish to user %s", user)
+	return wish.ID
 }
 
 func (a *App) RemoveWish(id uuid.UUID) error {
