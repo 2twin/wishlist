@@ -14,16 +14,6 @@ var (
 	ErrUserNotFound      = errors.New("username not found")
 )
 
-func (a *App) FindUser(username string) (*User, error) {
-	for i := range a.Users {
-		if a.Users[i].Username == username {
-			return &a.Users[i], nil
-		}
-	}
-
-	return nil, ErrUserNotFound
-}
-
 func (a *App) AddUser(username string) error {
 	for _, user := range a.Users {
 		if user.Username == username {
@@ -50,4 +40,8 @@ func (a *App) RemoveUser(username string) error {
 
 	log.Printf("<Error> User with username %s not found", username)
 	return ErrUserNotFound
+}
+
+func (a *App) GetUsers() []User {
+	return a.Users
 }

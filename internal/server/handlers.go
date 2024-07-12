@@ -203,3 +203,23 @@ func (s *Server) GetWishes(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(data)
 }
+
+func (s *Server) GetUsers(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+
+	users := s.app.GetUsers()
+
+	data, err := json.Marshal(users)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Println(err)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(data)
+}

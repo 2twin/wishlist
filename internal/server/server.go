@@ -48,6 +48,7 @@ func (s *Server) InitRoutes() {
 	mux.HandleFunc("/edit_wish", s.LogMiddleware(s.EditWish))
 	mux.HandleFunc("/toggle_wish_status", s.LogMiddleware(s.ToggleWishStatus))
 	mux.HandleFunc("/get_wishes", s.LogMiddleware(s.GetWishes))
+	mux.HandleFunc("/get_users", s.LogMiddleware(s.GetUsers))
 }
 
 func (s *Server) ListenAndServe() error {
