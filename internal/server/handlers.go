@@ -69,7 +69,7 @@ func (s *Server) AddUser(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) RemoveUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	if r.Method != http.MethodDelete {
+	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -122,7 +122,7 @@ func (s *Server) AddWish(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) RemoveWish(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	if r.Method != http.MethodDelete {
+	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
